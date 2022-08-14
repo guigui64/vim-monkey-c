@@ -1,12 +1,18 @@
+" quit when a syntax file was already loaded
 if exists("b:current_syntax")
-    finish
+  finish
 endif
 
-syntax keyword monkeyCStatement and break continue me new or return self using
+" inform C syntax that the file was included from cpp.vim
+let b:filetype_in_cpp_family = 1
+
+" Read the C syntax to start with
+runtime! syntax/c.vim
+unlet b:current_syntax
+
+syntax keyword monkeyCStatement and me new return self using
 syntax keyword monkeyCKeyword as const function module native
-syntax keyword monkeyCConditional if else switch
 syntax keyword monkeyCLabel case default
-syntax keyword monkeyCRepeat do for while
 syntax keyword monkeyCException catch finally throw try
 syntax keyword monkeyCBoolean false true
 syntax keyword monkeyCOperator has instanceof
@@ -19,9 +25,7 @@ syntax match monkeyCComment "\v//.*$"
 
 highlight link monkeyCStatement Statement
 highlight link monkeyCKeyword Keyword
-highlight link monkeyCConditional Conditional
 highlight link monkeyCLabel Label
-highlight link monkeyCRepeat Repeat
 highlight link monkeyCException Exception
 highlight link monkeyCBoolean Boolean
 highlight link monkeyCOperator Operator
